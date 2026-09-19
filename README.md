@@ -1,13 +1,12 @@
 import java.util.Scanner;
 public class Main {
-static long[][] dp;
-static int[][] split;
- static int[] dimensions;
- * Recursively prints the optimal parenthesization.
+    static long[][] dp;
+    static int[][] split;
+    static int[] dimensions;
     static void printOptimalOrder(int i, int j) {
-      if (i == j) {
-      System.out.print("A" + i);
-    return;
+        if (i == j) {
+            System.out.print("A" + i);
+            return;
         }
         System.out.print("(");
         printOptimalOrder(i, split[i][j]);
@@ -19,17 +18,17 @@ static int[][] split;
         split = new int[n + 1][n + 1];
         for (int length = 2; length <= n; length++) {
             for (int i = 1; i <= n - length + 1; i++) {
-           int j = i + length - 1;
-           dp[i][j] = Long.MAX_VALUE;
-            for (int k = i; k < j; k++) {
-              long cost = dp[i][k]
-              + dp[k + 1][j]
-              + (long) dimensions[i - 1]
-            * dimensions[k]
-            * dimensions[j]
-             if (cost < dp[i][j]) {
-                 dp[i][j] = cost;
-                 split[i][j] = k;
+                int j = i + length - 1;
+                dp[i][j] = Long.MAX_VALUE;
+                for (int k = i; k < j; k++) {
+                    long cost = dp[i][k]
+                            + dp[k + 1][j]
+                            + (long) dimensions[i - 1]
+                            * dimensions[k]
+                            * dimensions[j];
+                    if (cost < dp[i][j]) {
+                        dp[i][j] = cost;
+                        split[i][j] = k;
                     }
                 }
             }
@@ -57,13 +56,14 @@ static int[][] split;
         System.out.print("Enter number of matrices: ");
         int n = scanner.nextInt();
         if (n <= 0) {
-            System.out.println("Error: Number of matrices must be positive.");
+            System.out.println(
+                    "Error: Number of matrices must be positive."
+            );
             scanner.close();
             return;
         }
         dimensions = new int[n + 1];
-        System.out.println("\nEnter " + (n + 1)
-                + " dimensions:");
+        System.out.println("\nEnter " + (n + 1) + " dimensions:");
         for (int i = 0; i <= n; i++) {
             dimensions[i] = scanner.nextInt();
             if (dimensions[i] <= 0) {
