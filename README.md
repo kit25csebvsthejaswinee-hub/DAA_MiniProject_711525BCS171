@@ -1,18 +1,17 @@
 import java.util.Scanner;
 public class Main {
-    static long[][] dp;
-    static int[][] split;
-    static int[] dimensions;
-     * Recursively prints the optimal parenthesization.
+static long[][] dp;
+static int[][] split;
+ static int[] dimensions;
+ * Recursively prints the optimal parenthesization.
     static void printOptimalOrder(int i, int j) {
-        if (i == j) {
-            System.out.print("A" + i);
-            return;
+      if (i == j) {
+      System.out.print("A" + i);
+    return;
         }
         System.out.print("(");
         printOptimalOrder(i, split[i][j]);
         printOptimalOrder(split[i][j] + 1, j);
-
         System.out.print(")");
     }
     static long matrixChainOrder(int n) {
